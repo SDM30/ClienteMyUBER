@@ -22,6 +22,7 @@ public class MainCliente {
         int option = -1;
 
         try {
+            //Direccion IP del servidor, de lo contrario si se ejecuta como proceso dejar en 0.0.0.0
             Registry registry = LocateRegistry.getRegistry("0.0.0.0", 1099);
             iMyUBER interUBER = (iMyUBER) registry.lookup("ObjetoRemotoMyUBER");
 
