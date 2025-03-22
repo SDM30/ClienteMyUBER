@@ -17,5 +17,5 @@ public interface iMyUBER extends Remote {
     /*
      * Solicitar taxi:
      */
-    public String solicitarTaxi(int posXUsr, int posYUsr) throws RemoteException;
+    public String solicitarTaxi(String nombre, long telefono, int posXUsr, int posYUsr) throws RemoteException;
 }

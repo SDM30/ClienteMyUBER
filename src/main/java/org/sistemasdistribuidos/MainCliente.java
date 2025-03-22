@@ -63,6 +63,39 @@ public class MainCliente {
                             break;
                         case 3:
                             // Lógica para la opción 3
+                            System.out.print(ROJO + "Ingresa el nombre del usuario: " + RESET);
+                            String nombreTaxi = scanner.nextLine();
+
+                            System.out.print(ROJO + "Ingresa el número de teléfono del usuario: " + RESET);
+                            if (scanner.hasNextLong()) {
+                                long telefonoTaxi = scanner.nextLong();
+                                scanner.nextLine(); // Consumir el salto de línea pendiente
+
+                                System.out.print(ROJO + "Ingresa la coordenada X del usuario: " + RESET);
+                                if (scanner.hasNextInt()) {
+                                    int posXUsr = scanner.nextInt();
+                                    scanner.nextLine(); // Consumir el salto de línea pendiente
+
+                                    System.out.print(ROJO + "Ingresa la coordenada Y del usuario: " + RESET);
+                                    if (scanner.hasNextInt()) {
+                                        int posYUsr = scanner.nextInt();
+                                        scanner.nextLine(); // Consumir el salto de línea pendiente
+
+                                        // Llamar al método remoto para solicitar un taxi
+                                        String resultado = interUBER.solicitarTaxi(nombreTaxi, telefonoTaxi, posXUsr, posYUsr);
+                                        System.out.println(VERDE + resultado + RESET);
+                                    } else {
+                                        System.out.println(ROJO + "Coordenada Y inválida." + RESET);
+                                        scanner.nextLine(); // Limpiar la entrada inválida
+                                    }
+                                } else {
+                                    System.out.println(ROJO + "Coordenada X inválida." + RESET);
+                                    scanner.nextLine(); // Limpiar la entrada inválida
+                                }
+                            } else {
+                                System.out.println(ROJO + "Número de teléfono inválido." + RESET);
+                                scanner.nextLine(); // Limpiar la entrada inválida
+                            }
                             break;
                         case 4:
                             System.out.println("Saliendo del sistema.");
