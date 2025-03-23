@@ -17,12 +17,13 @@ public class MainCliente {
         final String VERDE = "\u001B[32m";
         final String AZUL = "\u001B[34m";
 
-        // Leer input del usuario
+        // Inicialización del scanner para leer input del usuario
         Scanner scanner = new Scanner(System.in);
         int option = -1;
 
         try {
             //Direccion IP del servidor, de lo contrario si se ejecuta como proceso dejar en localhost
+            // Conexión al registro RMI en la dirección y puerto especificados
             Registry registry = LocateRegistry.getRegistry("localhost", 1099);
             iMyUBER interUBER = (iMyUBER) registry.lookup("ObjetoRemotoMyUBER");
 
@@ -40,7 +41,7 @@ public class MainCliente {
                     scanner.nextLine(); // Consumir el salto de línea pendiente
 
                     switch (option) {
-                        case 1:
+                        case 1: // Registro de Usuario
                             System.out.print(AZUL + "Ingresa el nombre del usuario: " + RESET);
                             String nombre = scanner.nextLine();
 
@@ -58,12 +59,12 @@ public class MainCliente {
                                 scanner.nextLine(); // Limpiar la entrada inválida
                             }
                             break;
-                        case 2:
+                        case 2: // tipos de servicios
                             // Lógica para la opción 2
                             System.out.println ( VERDE + interUBER.consutarTiposServicio () + RESET);
                             break;
-                        case 3:
-                            // Lógica para la opción 3
+                        case 3: 
+                            // solicitud de taxi
                             System.out.print(AZUL + "Ingresa el nombre del usuario: " + RESET);
                             String nombreTaxi = scanner.nextLine();
 
@@ -84,6 +85,8 @@ public class MainCliente {
 
                                         // Llamar al método remoto para solicitar un taxi
                                         String resultado = interUBER.solicitarTaxi(nombreTaxi, telefonoTaxi, posXUsr, posYUsr);
+                                         // Verificar si la respuesta corresponde a un taxi asignado exitosamente
+                                        // El patrón verifica que sea "Taxi asignado: " seguido de dos letras y dos números
                                         if (resultado.matches ("Taxi asignado: [A-Z][A-Z][0-9][0-9]")) {
                                             System.out.println(VERDE + resultado + RESET);
                                         } else {
@@ -102,7 +105,7 @@ public class MainCliente {
                                 scanner.nextLine(); // Limpiar la entrada inválida
                             }
                             break;
-                        case 4:
+                        case 4: // salir del programa
                             System.out.println("Saliendo del sistema.");
                             break;
                         default:
@@ -114,6 +117,9 @@ public class MainCliente {
                     scanner.nextLine(); // Limpiar la entrada inválida
                 }
             } while (option != 4);
+             // Manejo de excepciones RMI
+            // RemoteException: Ocurre cuando hay problemas de comunicación con el servidor
+            // NotBoundException: Ocurre cuando el objeto remoto no está registrado con el nombre especificado
         } catch (RemoteException | NotBoundException e) {
             System.out.println("Error: " + e);
         } finally {
