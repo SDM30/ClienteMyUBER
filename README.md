@@ -41,7 +41,7 @@ No modificar el código fuente y ejecutarlo directamente. Asegúrate de que el [
 2. Modifica la línea:
 
    ```java
-   Registry registry = LocateRegistry.getRegistry("0.0.0.0", 1099);
+   Registry registry = LocateRegistry.getRegistry("localhost", 1099);
    ```
 
    Por la dirección IP del servidor:
