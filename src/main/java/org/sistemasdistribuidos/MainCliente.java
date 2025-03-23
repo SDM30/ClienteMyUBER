@@ -6,10 +6,23 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Scanner;
 
-/*
-* Autores: Juan Luis Ardila, Simon Diaz y Melissa Ruiz
+/**
+ * @author Juan Luis Ardila
+ * @author Simón Diaz
+ * @author Melissa Fernanda Ruiz
+ *  
+ * Clase principal del cliente para la aplicación myUBER.
+ * Implementa la interfaz de usuario por consola que permite interactuar
+ * con los servicios remotos a través de RMI.
  */
 public class MainCliente {
+    /**
+     * Método principal que inicia la aplicación cliente.
+     * Establece la conexión con el servidor RMI y muestra un menú
+     * para acceder a los servicios disponibles.
+     * 
+     * @param args Argumentos de línea de comando (no utilizados)
+     */
     public static void main(String[] args) {
         // Colores CLI
         final String RESET = "\u001B[0m";
@@ -27,8 +40,9 @@ public class MainCliente {
             Registry registry = LocateRegistry.getRegistry("localhost", 1099);
             iMyUBER interUBER = (iMyUBER) registry.lookup("ObjetoRemotoMyUBER");
 
-            // Interfaz de consola
+           // Bucle principal del menú de la aplicación que continúa hasta que el usuario elija salir
             do {
+                // menú
                 System.out.println("Bienvenido usuario a myUBER");
                 System.out.println("1. Registrar usuario");
                 System.out.println("2. Consultar tipos de servicio");
@@ -36,12 +50,14 @@ public class MainCliente {
                 System.out.println("4. Salir");
                 System.out.print("Opción: ");
 
+                // Verificar que la entrada sea un número entero válido
                 if (scanner.hasNextInt()) {
                     option = scanner.nextInt();
                     scanner.nextLine(); // Consumir el salto de línea pendiente
 
                     switch (option) {
                         case 1: // Registro de Usuario
+                             // Solicita nombre y teléfono, luego invoca el método remoto
                             System.out.print(AZUL + "Ingresa el nombre del usuario: " + RESET);
                             String nombre = scanner.nextLine();
 
@@ -49,6 +65,8 @@ public class MainCliente {
                             if (scanner.hasNextLong()) {
                                 long telefono = scanner.nextLong();
                                 scanner.nextLine(); // Consumir el salto de línea pendiente
+
+                                // Llamada al método remoto para registrar usuario e informa del resultado
                                 if (interUBER.registrarUsuario(nombre, telefono)) {
                                     System.out.println(VERDE + "Registro exitoso" + RESET);
                                 } else {
@@ -60,11 +78,12 @@ public class MainCliente {
                             }
                             break;
                         case 2: // tipos de servicios
-                            // Lógica para la opción 2
+                            // Llamada al método remoto para obtener la información de servicios y mostrarla al usuario
                             System.out.println ( VERDE + interUBER.consutarTiposServicio () + RESET);
                             break;
                         case 3: 
                             // solicitud de taxi
+                            // Recoge los datos del usuario y coordenadas, luego invoca el método remoto
                             System.out.print(AZUL + "Ingresa el nombre del usuario: " + RESET);
                             String nombreTaxi = scanner.nextLine();
 
