@@ -86,8 +86,8 @@ public class MainCliente {
                                         // Llamar al método remoto para solicitar un taxi
                                         String resultado = interUBER.solicitarTaxi(nombreTaxi, telefonoTaxi, posXUsr, posYUsr);
                                          // Verificar si la respuesta corresponde a un taxi asignado exitosamente
-                                        // El patrón verifica que sea "Taxi asignado: " seguido de dos letras y dos números
-                                        if (resultado.matches ("Taxi asignado: [A-Z][A-Z][0-9][0-9]")) {
+                                        // El patrón verifica que sea "Taxi asignado: " seguido de dos o tres letras y dos números
+                                        if (resultado.matches ("Taxi asignado: [A-Z][A-Z][A-Z]?[0-9][0-9]")) {
                                             System.out.println(VERDE + resultado + RESET);
                                         } else {
                                             System.out.println(ROJO + resultado + RESET);
