@@ -30,8 +30,8 @@ public class MainCliente {
             do {
                 System.out.println("Bienvenido usuario a myUBER");
                 System.out.println("1. Registrar usuario");
-                System.out.println("2. Otra opción");
-                System.out.println("3. Otra opción");
+                System.out.println("2. Consultar tipos de servicio");
+                System.out.println("3. Solicitar taxi");
                 System.out.println("4. Salir");
                 System.out.print("Opción: ");
 
